@@ -17,7 +17,7 @@ RSpec.describe "Authors", type: :request do
 
         get '/authors'
 
-        expect(json_body[0]).to have_key("id")
+        expect(json_body[0]).to have_key("id") 
         expect(json_body[0]).to have_key("name")
       end
     end
