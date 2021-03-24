@@ -52,6 +52,14 @@ RSpec.describe "Authors", type: :request do
 
         expect(response).to have_http_status(:unprocessable_entity)
       end
+
+      it 'must return the error message' do
+        author_params = attributes_for(:author, name: nil)
+
+        post '/authors', params: { author: author_params }
+
+        expect(json_body).to have_key(:error_message)
+      end
     end
   end
 end

@@ -13,7 +13,7 @@ class AuthorsController < ApplicationController
       render json: author,
              serializer: Create::AuthorSerializer, status: :created
     else
-      render json: { message: "Error on the author creation" }, status: :unprocessable_entity
+      render json: { error_message: "the name is null or invalid" }, status: :unprocessable_entity
     end
   end
 
