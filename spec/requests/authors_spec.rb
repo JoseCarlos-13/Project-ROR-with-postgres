@@ -42,6 +42,14 @@ RSpec.describe "Authors", type: :request do
         expect(json_body).to have_key(:id)
         expect(json_body).to have_key(:name)
       end
+
+      it 'must return 422 status code' do
+        author_params = attributes_for(:author, name: nil)
+
+        post '/authors', params: { author: author_params }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
     end
   end
 end

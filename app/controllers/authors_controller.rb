@@ -7,12 +7,14 @@ class AuthorsController < ApplicationController
   end
 
   def create
-    author = Author.create!(author_params)
-    
-    author.save
+    author = Author.new(author_params)
 
-    render json: author,
-           serializer: Create::AuthorSerializer, status: :created
+    if author.save
+      render json: author,
+             serializer: Create::AuthorSerializer, status: :created
+    else
+      render json: { message: "Error on the author creation" }, status: :unprocessable_entity
+    end
   end
 
   def author_params
