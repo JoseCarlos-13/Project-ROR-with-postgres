@@ -25,4 +25,51 @@ RSpec.describe "Articles", type: :request do
       end
     end
   end
+
+  describe 'POST #create' do
+    context 'when the article is created' do
+      it 'must return the 201 status code' do
+        author = create(:author)
+        article_params = attributes_for(:article, title: 'o iluminado', 
+          body: 'lorem ipsum text body', author_id: author.id)
+
+        post '/articles', params: { article: article_params }
+
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'must return the article created' do
+        author = create(:author)
+        article_params = attributes_for(:article, title: 'o iluminado', 
+          body: 'lorem ipsum text body', author_id: author.id)
+
+        post '/articles', params: { article: article_params }
+
+        expect(json_body).to have_key(:id)
+        expect(json_body).to have_key(:title)
+        expect(json_body).to have_key(:body)
+        expect(json_body).to have_key(:author_id)
+      end
+    end
+
+    context 'when the article is not created' do
+      it 'must return the 422 status code' do
+        article_params = attributes_for(:article, title: nil, 
+          body: nil, author_id: nil)
+
+        post '/articles', params: { article: article_params }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'must return the 422 status code' do
+        article_params = attributes_for(:article, title: nil, 
+          body: nil, author_id: nil)
+
+        post '/articles', params: { article: article_params }
+
+        expect(json_body).to have_key(:error_message)
+      end
+    end
+  end
 end
