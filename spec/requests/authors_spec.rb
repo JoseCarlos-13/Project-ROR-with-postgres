@@ -42,7 +42,9 @@ RSpec.describe "Authors", type: :request do
         expect(json_body).to have_key(:id)
         expect(json_body).to have_key(:name)
       end
+    end
 
+    context 'when the author is not created' do
       it 'must return 422 status code' do
         author_params = attributes_for(:author, name: nil)
 
