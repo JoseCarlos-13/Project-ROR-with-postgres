@@ -23,4 +23,43 @@ RSpec.describe "Authors", type: :request do
       end
     end
   end
+
+  describe 'POST #create' do
+    context 'when the author is created' do
+      it 'must return 201 status code' do
+        author_params = attributes_for(:author, name: 'Stephen King')
+
+        post '/authors', params: { author: author_params }
+
+        expect(response).to have_http_status(:created)
+      end
+
+      it 'must create the author' do
+        author_params = attributes_for(:author, name: 'Stephen King')
+
+        post '/authors', params: { author: author_params }
+
+        expect(json_body).to have_key(:id)
+        expect(json_body).to have_key(:name)
+      end
+    end
+
+    context 'when the author is not created' do
+      it 'must return 422 status code' do
+        author_params = attributes_for(:author, name: nil)
+
+        post '/authors', params: { author: author_params }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'must return the error message' do
+        author_params = attributes_for(:author, name: nil)
+
+        post '/authors', params: { author: author_params }
+
+        expect(json_body).to have_key(:error_message)
+      end
+    end
+  end
 end
