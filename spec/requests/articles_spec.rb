@@ -62,7 +62,7 @@ RSpec.describe "Articles", type: :request do
         expect(response).to have_http_status(:unprocessable_entity)
       end
 
-      it 'must return the 422 status code' do
+      it 'must return the error message' do
         article_params = attributes_for(:article, title: nil, 
           body: nil, author_id: nil)
 
