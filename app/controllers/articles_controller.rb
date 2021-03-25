@@ -13,7 +13,7 @@ class ArticlesController < ApplicationController
       render json: article,
              serializer: Create::ArticleSerializer, status: :created
     else
-      render json: { error_message: "the body, the title or the author id, is empty or invalid" },
+      render json: { errors: article.errors },
              status: :unprocessable_entity
     end
   end

@@ -68,7 +68,7 @@ RSpec.describe "Articles", type: :request do
 
         post '/articles', params: { article: article_params }
 
-        expect(json_body).to have_key(:error_message)
+        expect(json_body).to have_key(:errors)
       end
     end
   end
