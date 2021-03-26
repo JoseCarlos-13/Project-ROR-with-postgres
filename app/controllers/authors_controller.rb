@@ -17,6 +17,14 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def update
+    author = Author.find(params[:id])
+
+    author.update!(author_params)
+
+    head :no_content
+  end
+
   def author_params
     params.require(:author).permit(:name)
   end

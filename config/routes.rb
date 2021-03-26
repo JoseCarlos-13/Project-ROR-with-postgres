@@ -1,5 +1,5 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see https://guides.rubyonrails.org/routing.html
-  resources :authors, only: %i[index create show]
+  resources :authors
   resources :articles, only: %i[index create]
 end
