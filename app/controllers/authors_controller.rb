@@ -20,9 +20,11 @@ class AuthorsController < ApplicationController
   def update
     author = Author.find(params[:id])
 
-    author.update!(author_params)
-
-    head :no_content
+    if author.update(author_params)
+      head :no_content
+    else
+      render json: { errors: author.errors }, status: :unprocessable_entity
+    end
   end
 
   def author_params
