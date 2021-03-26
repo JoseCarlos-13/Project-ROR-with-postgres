@@ -82,7 +82,6 @@ RSpec.describe "Authors", type: :request do
 
         put "/authors/#{author.id}", params: { author: author_params }
 
-        binding.pry
         expect(response).to have_http_status(:unprocessable_entity)
       end
     end
