@@ -17,6 +17,16 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def update
+    author = Author.find(params[:id])
+
+    if author.update(author_params)
+      head :no_content
+    else
+      render json: { errors: author.errors }, status: :unprocessable_entity
+    end
+  end
+
   def author_params
     params.require(:author).permit(:name)
   end

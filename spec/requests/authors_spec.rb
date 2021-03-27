@@ -62,4 +62,28 @@ RSpec.describe "Authors", type: :request do
       end
     end
   end
+
+  describe 'PUT #update' do
+    context 'when the author is updated' do
+      it 'must return the 204 status code' do
+        author = create(:author)
+        author_params = attributes_for(:author, name: 'Mary Shelley')
+
+        put "/authors/#{author.id}", params: { author: author_params }
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context 'when the author is not updated' do
+      it 'must return the 422 status code' do
+        author = create(:author)
+        author_params = attributes_for(:author, name: nil)
+
+        put "/authors/#{author.id}", params: { author: author_params }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+    end
+  end
 end
