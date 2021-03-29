@@ -27,6 +27,16 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def show
+    author = Author.find(params[:id])
+
+    if author.nil?
+      render json: { errors: author.errors }, status: :not_found
+    else
+      render json: author, serializer: Show::AuthorSerializer, status: :ok
+    end
+  end
+
   def author_params
     params.require(:author).permit(:name)
   end

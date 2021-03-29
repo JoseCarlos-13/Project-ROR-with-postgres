@@ -86,4 +86,35 @@ RSpec.describe "Authors", type: :request do
       end
     end
   end
+
+  describe 'GET #show' do
+    context 'when the author is found' do
+      it 'must return 200 status code' do
+        author = create(:author, name: 'Edgar Allan Poe')
+
+        get "/authors/#{author.id}"
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'must return the author' do
+        author = create(:author, name: 'Edgar Allan Poe')
+
+        get "/authors/#{author.id}"
+
+        expect(json_body).to have_key(:id)
+        expect(json_body).to have_key(:name)
+      end
+    end
+
+    context 'when the author is not found' do
+      it 'must return the 404 status' do
+        invalid_author_id = nil
+
+        get "/authors/#{invalid_author_id}"
+        
+        expect(response).to have_http_status(:not_found)
+      end
+    end
+  end
 end
