@@ -106,15 +106,5 @@ RSpec.describe "Authors", type: :request do
         expect(json_body).to have_key(:name)
       end
     end
-
-    context 'when the author is not found' do
-      it 'must return the 404 status' do
-        invalid_author_id = nil
-
-        get "/authors/#{invalid_author_id}"
-        
-        expect(response).to have_http_status(:not_found)
-      end
-    end
   end
 end
