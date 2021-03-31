@@ -27,6 +27,12 @@ class AuthorsController < ApplicationController
     end
   end
 
+  def show
+    author = Author.find(params[:id])
+
+    render json: author, serializer: Show::AuthorSerializer, status: :ok
+  end
+
   def author_params
     params.require(:author).permit(:name)
   end
