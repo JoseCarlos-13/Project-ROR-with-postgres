@@ -3,7 +3,10 @@ desc 'first task'
     puts "There's not place like our home"
   end
 
-  task :createfile do
-    dir = "#{Rails.root}/test/NF"
-    
+  desc 'read files'
+  namespace :import do
+    task :import_and_read_files do
+      puts 'New Message'
+    end
   end
+ 

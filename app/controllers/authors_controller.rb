@@ -33,6 +33,14 @@ class AuthorsController < ApplicationController
     render json: author, serializer: Show::AuthorSerializer, status: :ok
   end
 
+  def destroy
+    author = Author.find(params[:id])
+
+    author.destroy!
+
+    head :no_content
+  end
+
   def author_params
     params.require(:author).permit(:name)
   end

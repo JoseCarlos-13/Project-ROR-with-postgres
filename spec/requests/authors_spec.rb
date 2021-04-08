@@ -107,4 +107,24 @@ RSpec.describe "Authors", type: :request do
       end
     end
   end
+
+  describe 'DELETE #destroy' do
+    context 'when the author is deleted' do
+      it 'must return 204 status code' do
+        author = create(:author, name: 'Rick Riordan')
+
+        delete "/authors/#{author.id}"
+
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it 'must delete the author' do
+        author = create(:author, name: 'Rick Riordan')
+
+        delete "/authors/#{author.id}"
+
+        expect(Author.count).to eq(0)
+      end
+    end
+  end
 end
