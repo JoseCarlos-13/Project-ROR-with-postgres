@@ -18,6 +18,16 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def update
+    article = Article.find(params[:id])
+
+    if article.update(article_params)
+      head :no_content
+    else
+      render json: { errors: article.errors }, status: :unprocessable_entity
+    end
+  end
+
   def article_params
     params.require(:article).permit(:title, :body, :author_id)
   end

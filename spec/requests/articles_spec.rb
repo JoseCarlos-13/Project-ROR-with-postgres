@@ -72,4 +72,40 @@ RSpec.describe "Articles", type: :request do
       end
     end
   end
+
+  describe 'PUT #update' do
+    context 'when the article is updated' do
+      it 'must return 204 status code' do
+        author = create(:author)
+        article = create(:article, author_id: author.id)
+        article_params = attributes_for(:article, title: 'article 1', body: 'lorem ipsum text')
+
+        put "/articles/#{article.id}", params: { article: article_params }
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context 'when the article is not updated' do
+      it 'must return 422 status code' do
+        author = create(:author)
+        article = create(:article, author_id: author.id)
+        article_params = attributes_for(:article, title: nil, body: nil)
+
+        put "/articles/#{article.id}", params: { article: article_params }
+
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it 'must return the error message' do
+        author = create(:author)
+        article = create(:article, author_id: author.id)
+        article_params = attributes_for(:article, title: nil, body: nil)
+
+        put "/articles/#{article.id}", params: { article: article_params }
+
+        expect(json_body).to have_key(:errors)
+      end
+    end
+  end
 end
