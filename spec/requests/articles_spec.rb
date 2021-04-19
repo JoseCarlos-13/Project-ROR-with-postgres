@@ -108,4 +108,28 @@ RSpec.describe "Articles", type: :request do
       end
     end
   end
+
+  describe 'GET #show' do
+    context 'when the article is found' do
+      it 'must return 200 status code' do
+        author = create(:author)
+        article = create(:article, title: 'title 3', body: 'lorem ipsum 3', author_id: author.id)
+
+        get "/articles/#{article.id}"
+
+        expect(response).to have_http_status(:ok)
+      end
+
+      it 'must return the article' do
+        author = create(:author)
+        article = create(:article, title: 'title 3', body: 'lorem ipsum 3', author_id: author.id)
+
+        get "/articles/#{article.id}" 
+
+        expect(json_body).to have_key(:id)
+        expect(json_body).to have_key(:title)
+        expect(json_body).to have_key(:body)
+      end
+    end
+  end
 end
