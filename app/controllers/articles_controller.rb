@@ -28,6 +28,12 @@ class ArticlesController < ApplicationController
     end
   end
 
+  def show
+    article = Article.find(params[:id])
+
+    render json: article, status: :ok
+  end
+
   def article_params
     params.require(:article).permit(:title, :body, :author_id)
   end
