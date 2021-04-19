@@ -124,7 +124,7 @@ RSpec.describe "Articles", type: :request do
         author = create(:author)
         article = create(:article, title: 'title 3', body: 'lorem ipsum 3', author_id: author.id)
 
-        get "/articles/#{article.id}"
+        get "/articles/#{article.id}" 
 
         expect(json_body).to have_key(:id)
         expect(json_body).to have_key(:title)
