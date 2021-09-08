@@ -1,22 +1,31 @@
-namespace :enrollment do
-  desc 'read and save CSV files'
+require 'csv'
+
+namespace :author do
+  desc 'save and read CSV files'
   task :read_and_save_in_file => :environment do
     puts 'importing files*'
     puts 'writing the values*'
 
-    CSV.open('lib/tasks/test_task.csv', "w") do |csv|
-     csv << Enrollment.column_names[1..3]
+    CSV.open('lib/tasks/test.csv', "w") do |csv|
+       csv << Author.column_names[1..3]
 
-     Enrollment.all.each do |col_value| 
-      csv << col_value.slice(:register_number, :cpf, :institution_id).values
-     end
+      Author.all.each do |col_value|
+        csv << col_value.slice(:name, :created_at, :updated_at).values
+      end
     end
 
-    CSV.foreach('lib/tasks/test_task.csv', headers: true) do |row|
+    CSV.foreach('lib/tasks/test.csv', headers: true) do |row|
       puts row.inspect
     end
 
     puts 'done!'
+  end
+
+  desc 'import the csv data for the data bank'
+  task :import_for_the_bank => :environment do
+    CSV.foreach('lib/tasks/test.csv', headers: true) do |row|
+      Author.create!(name: row['name'])
+    end
   end
 end
 
