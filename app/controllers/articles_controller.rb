@@ -34,6 +34,14 @@ class ArticlesController < ApplicationController
     render json: article, status: :ok
   end
 
+  def destroy
+    article = Article.find(params[:id])
+
+    article.destroy!
+
+    head :no_content
+  end
+
   def article_params
     params.require(:article).permit(:title, :body, :author_id)
   end

@@ -30,7 +30,7 @@ RSpec.describe "Articles", type: :request do
     context 'when the article is created' do
       it 'must return the 201 status code' do
         author = create(:author)
-        article_params = attributes_for(:article, title: 'o iluminado', 
+        article_params = attributes_for(:article, title: 'o iluminado',
           body: 'lorem ipsum text body', author_id: author.id)
 
         post '/articles', params: { article: article_params }
@@ -40,7 +40,7 @@ RSpec.describe "Articles", type: :request do
 
       it 'must return the article created' do
         author = create(:author)
-        article_params = attributes_for(:article, title: 'o iluminado', 
+        article_params = attributes_for(:article, title: 'o iluminado',
           body: 'lorem ipsum text body', author_id: author.id)
 
         post '/articles', params: { article: article_params }
@@ -54,7 +54,7 @@ RSpec.describe "Articles", type: :request do
 
     context 'when the article is not created' do
       it 'must return the 422 status code' do
-        article_params = attributes_for(:article, title: nil, 
+        article_params = attributes_for(:article, title: nil,
           body: nil, author_id: nil)
 
         post '/articles', params: { article: article_params }
@@ -63,7 +63,7 @@ RSpec.describe "Articles", type: :request do
       end
 
       it 'must return the error message' do
-        article_params = attributes_for(:article, title: nil, 
+        article_params = attributes_for(:article, title: nil,
           body: nil, author_id: nil)
 
         post '/articles', params: { article: article_params }
@@ -124,11 +124,33 @@ RSpec.describe "Articles", type: :request do
         author = create(:author)
         article = create(:article, title: 'title 3', body: 'lorem ipsum 3', author_id: author.id)
 
-        get "/articles/#{article.id}" 
+        get "/articles/#{article.id}"
 
         expect(json_body).to have_key(:id)
         expect(json_body).to have_key(:title)
         expect(json_body).to have_key(:body)
+      end
+    end
+  end
+
+  describe 'DELETE#destroy' do
+    context 'when the article is deleted' do
+      it 'must return status code 204' do
+        author = create(:author)
+        article = create(:article, author_id: author.id)
+
+        delete "/articles/#{article.id}"
+
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it 'must delete the article' do
+        author = create(:author)
+        article = create(:article, author_id: author.id)
+
+        delete "/articles/#{article.id}"
+
+        expect(Article.count).to eq(0)
       end
     end
   end
