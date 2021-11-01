@@ -2,7 +2,7 @@ class AuthorsController < ApplicationController
   def index
     authors = Author.all
 
-    authors = authors.where("name like ?", "%#{params[:name]}%")
+    authors = authors.where("name like ?", "%#{params[:name]}%") if params[:name].present?
 
     render json: authors,
            each_serializer: Index::AuthorSerializer, status: :ok
