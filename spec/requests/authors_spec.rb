@@ -19,7 +19,19 @@ RSpec.describe "Authors", type: :request do
 
         expect(json_body[0]).to have_key(:id)
         expect(json_body[0]).to have_key(:name)
-        expect(json_body[0]).to have_key(:articles)
+      end
+    end
+
+    context 'when search an author by name' do
+      it 'must return the author' do
+        search_params = "John Bender"
+        author1 = create(:author, name: "Allison Reynolds")
+        author2 = create(:author, name: "Brian Johnson")
+        author3 = create(:author, name: "John Bender")
+
+        get "/authors?name=#{search_params}"
+
+        expect(json_body[0][:name]).to eq("John Bender")
       end
     end
   end
