@@ -9,8 +9,7 @@ class BooksController < ApplicationController
   def create
     @book = Book.new(book_params)
 
-    if @book.valid?
-      @book.save
+    if @book.save
       render json: @book,
              serializer: Book::Create::BookSerializer, status: :created
     else
