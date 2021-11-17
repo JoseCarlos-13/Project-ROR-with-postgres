@@ -6,10 +6,26 @@ class BooksController < ApplicationController
            each_serializer: Book::Index::BookSerializer, status: :ok
   end
 
+
   def show
     @book = Book.find(params[:id])
 
     render json: @book,
            serializer: Book::Show::BookSerializer, status: :ok
+  end
+
+  def create
+    @book = Book.new(book_params)
+
+    if @book.save
+      render json: @book,
+             serializer: Book::Create::BookSerializer, status: :created
+    else
+      render json: { errors: @book.errors.messages }, status: :unprocessable_entity
+    end
+  end
+
+  def book_params
+    params.require(:book).permit(:title, :sinopsis, :release_date, :author_id)
   end
 end
