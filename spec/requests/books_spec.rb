@@ -70,4 +70,26 @@ RSpec.describe "Books", type: :request do
       end
     end
   end
+
+  describe "GET#show" do
+    context "when a book is chosed" do
+      let(:author) { create(:author) }
+      let(:book) { create(:book, author_id: author.id) }
+
+      before do
+        book
+
+        get "/books/#{book.id}"
+      end
+
+      it "must return 200 status code" do
+        expect(response).to have_http_status :ok
+      end
+
+      it "must return the book selected" do
+        expect(json_body).to include(:id, :author, :title, :sinopsis,
+                                     :release_date)
+      end
+    end
+  end
 end

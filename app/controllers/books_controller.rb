@@ -6,6 +6,14 @@ class BooksController < ApplicationController
            each_serializer: Book::Index::BookSerializer, status: :ok
   end
 
+
+  def show
+    @book = Book.find(params[:id])
+
+    render json: @book,
+           serializer: Book::Show::BookSerializer, status: :ok
+  end
+
   def create
     @book = Book.new(book_params)
 
