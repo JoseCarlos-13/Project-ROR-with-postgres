@@ -1,11 +1,12 @@
 class BooksController < ApplicationController
+  skip_before_action :verify_authenticity_token
+
   def index
     @books = Book.all
 
     render json: @books,
            each_serializer: Book::Index::BookSerializer, status: :ok
   end
-
 
   def show
     @book = Book.find(params[:id])
@@ -26,6 +27,6 @@ class BooksController < ApplicationController
   end
 
   def book_params
-    params.require(:book).permit(:title, :sinopsis, :release_date, :author_id)
+    params.require(:book).permit(:title, :sinopsis, :release_date, :author_id, :book_cover)
   end
 end
