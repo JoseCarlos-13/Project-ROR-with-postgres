@@ -1,6 +1,4 @@
 class Book::Index::BookSerializer < ActiveModel::Serializer
-  include Rails.application.routes.url_helpers
-
   attributes :id, :title, :author, :release_date, :sinopsis, :book_cover
 
   def author
@@ -8,6 +6,6 @@ class Book::Index::BookSerializer < ActiveModel::Serializer
   end
 
   def book_cover
-    rails_blob_path(object.book_cover, only_path: true)
+    "#{ENV['BASE_URL']}#{object.image_url}" if object.book_cover.attached?
   end
 end

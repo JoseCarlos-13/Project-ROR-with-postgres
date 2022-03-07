@@ -7,4 +7,8 @@ class Book < ApplicationRecord
   has_one_attached :book_cover
 
   belongs_to :author
+
+  def image_url
+    Rails.application.routes.url_helpers.rails_blob_path(self.book_cover, only_path: true)
+  end
 end
