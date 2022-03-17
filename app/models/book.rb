@@ -1,4 +1,6 @@
 class Book < ApplicationRecord
+  include Rails.application.routes.url_helpers
+
   validates :title, presence: true
   validates :sinopsis, presence: true
   validates :release_date, presence: true
@@ -9,6 +11,9 @@ class Book < ApplicationRecord
   belongs_to :author
 
   def image_url
-    Rails.application.routes.url_helpers.rails_blob_path(self.book_cover, only_path: true)
+    base_url = ENV['BASE_URL']
+    book_cover_url = rails_blob_path(self.book_cover, only_path: true)
+
+    "#{base_url}#{book_cover_url}" if self.book_cover.attached?
   end
 end

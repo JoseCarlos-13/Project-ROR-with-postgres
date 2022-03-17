@@ -18,8 +18,8 @@ RSpec.describe "Books", type: :request do
       end
 
       it "must return the book list" do
-        expect(json_body[0]).to include(:id, :title, :author, :release_date,
-                                        :sinopsis)
+        expect(json_body[0]).to include(:id, :author, :title, :sinopsis,
+                                        :release_date, :book_cover)
       end
     end
   end
@@ -27,10 +27,17 @@ RSpec.describe "Books", type: :request do
   describe "POST#create" do
     context "when the book is created" do
       let(:author) { create(:author) }
+      let(:book_cover_image) {
+        fixture_file_upload(
+          Rails.root.join("app", "assets", "images", "ruby_symbol.png"),
+          content_type: 'image/png'
+        )
+      }
       let(:book_params) { attributes_for(:book, title: "myString",
                                                 author_id: author.id,
                                                 sinopsis: "myString",
-                                                release_date: "2021-11-05") }
+                                                release_date: "2021-11-05",
+                                                book_cover: book_cover_image) }
 
       before do
         book_params
@@ -43,8 +50,8 @@ RSpec.describe "Books", type: :request do
       end
 
       it "must return the book created" do
-        expect(json_body).to include(:id, :title, :release_date, :sinopsis,
-                                     :author)
+        expect(json_body).to include(:id, :author, :title, :sinopsis,
+                                     :release_date, :book_cover)
       end
     end
 
@@ -53,7 +60,8 @@ RSpec.describe "Books", type: :request do
       let(:book_params) { attributes_for(:book, title: nil,
                                                 author_id: author.id,
                                                 sinopsis: nil,
-                                                release_date: nil) }
+                                                release_date: nil,
+                                                book_cover: nil) }
 
       before do
         book_params
@@ -88,7 +96,7 @@ RSpec.describe "Books", type: :request do
 
       it "must return the book selected" do
         expect(json_body).to include(:id, :author, :title, :sinopsis,
-                                     :release_date)
+                                     :release_date, :book_cover)
       end
     end
   end

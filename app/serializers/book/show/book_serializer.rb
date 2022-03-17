@@ -6,6 +6,6 @@ class Book::Show::BookSerializer < ActiveModel::Serializer
   end
 
   def book_cover
-    "#{ENV['BASE_URL']}#{object.image_url}" if object.book_cover.attached?
+    object.image_url
   end
 end
