@@ -19,6 +19,7 @@ RSpec.describe "Authors", type: :request do
 
         expect(json_body[0]).to have_key(:id)
         expect(json_body[0]).to have_key(:name)
+        expect(json_body[0]).to have_key(:author_image)
       end
     end
 
@@ -39,7 +40,12 @@ RSpec.describe "Authors", type: :request do
   describe 'POST #create' do
     context 'when the author is created' do
       it 'must return 201 status code' do
-        author_params = attributes_for(:author, name: 'Stephen King')
+        author_image = fixture_file_upload(
+          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
+          'image/png'
+        )
+        author_params = attributes_for(:author, name: 'Stephen King',
+                                                author_image: author_image)
 
         post '/authors', params: { author: author_params }
 
@@ -47,18 +53,24 @@ RSpec.describe "Authors", type: :request do
       end
 
       it 'must create the author' do
-        author_params = attributes_for(:author, name: 'Stephen King')
+        author_image = fixture_file_upload(
+          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
+          'image/png'
+        )
+        author_params = attributes_for(:author, name: 'Stephen King',
+                                                author_image: author_image)
 
         post '/authors', params: { author: author_params }
 
         expect(json_body).to have_key(:id)
         expect(json_body).to have_key(:name)
+        expect(json_body).to have_key(:author_image)
       end
     end
 
     context 'when the author is not created' do
       it 'must return 422 status code' do
-        author_params = attributes_for(:author, name: nil)
+        author_params = attributes_for(:author, name: nil, author_image: nil)
 
         post '/authors', params: { author: author_params }
 
@@ -79,7 +91,12 @@ RSpec.describe "Authors", type: :request do
     context 'when the author is updated' do
       it 'must return the 204 status code' do
         author = create(:author)
-        author_params = attributes_for(:author, name: 'Mary Shelley')
+        author_image = fixture_file_upload(
+          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
+          'image/png'
+        )
+        author_params = attributes_for(:author, name: 'Mary Shelley',
+                                                author_image: author_image)
 
         put "/authors/#{author.id}", params: { author: author_params }
 
@@ -90,7 +107,7 @@ RSpec.describe "Authors", type: :request do
     context 'when the author is not updated' do
       it 'must return the 422 status code' do
         author = create(:author)
-        author_params = attributes_for(:author, name: nil)
+        author_params = attributes_for(:author, name: nil, author_image: nil)
 
         put "/authors/#{author.id}", params: { author: author_params }
 
@@ -102,7 +119,12 @@ RSpec.describe "Authors", type: :request do
   describe 'GET #show' do
     context 'when the author is found' do
       it 'must return 200 status code' do
-        author = create(:author, name: 'Edgar Allan Poe')
+        author_image = fixture_file_upload(
+          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
+          'image/png'
+        )
+        author = create(:author, name: 'Edgar Allan Poe',
+                                 author_image: author_image)
 
         get "/authors/#{author.id}"
 
@@ -110,12 +132,18 @@ RSpec.describe "Authors", type: :request do
       end
 
       it 'must return the author' do
-        author = create(:author, name: 'Edgar Allan Poe')
+        author_image = fixture_file_upload(
+          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
+          'image/png'
+        )
+        author = create(:author, name: 'Edgar Allan Poe',
+                                 author_image: author_image)
 
         get "/authors/#{author.id}"
 
         expect(json_body).to have_key(:id)
         expect(json_body).to have_key(:name)
+        expect(json_body).to have_key(:author_image)
       end
     end
   end
