@@ -7,7 +7,7 @@ FactoryBot.define do
 
     after(:build) do |book|
       image_path = Rails.root.join("app", "assets", "images", "ruby_symbol.png")
-      image = fixture_file_upload(image_path, content_type: 'image/png')
+      image = fixture_file_upload(image_path, 'image/png')
 
       book.book_cover.attach(image)
     end

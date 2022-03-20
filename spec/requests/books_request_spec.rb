@@ -30,7 +30,7 @@ RSpec.describe "Books", type: :request do
       let(:book_cover_image) {
         fixture_file_upload(
           Rails.root.join("app", "assets", "images", "ruby_symbol.png"),
-          content_type: 'image/png'
+          'image/png'
         )
       }
       let(:book_params) { attributes_for(:book, title: "myString",
@@ -57,9 +57,8 @@ RSpec.describe "Books", type: :request do
 
     context "when the book is not created" do
       let(:author) { create(:author) }
-      let(:book_params) { attributes_for(:book, title: nil,
+      let(:book_params) { attributes_for(:book, title: nil, sinopsis: nil,
                                                 author_id: author.id,
-                                                sinopsis: nil,
                                                 release_date: nil,
                                                 book_cover: nil) }
 
