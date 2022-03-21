@@ -86,7 +86,7 @@ RSpec.describe "Books", type: :request do
       before do
         book
 
-        get "/books/#{book.id}"
+        get book_path(id: book.id)
       end
 
       it "must return 200 status code" do
@@ -96,6 +96,52 @@ RSpec.describe "Books", type: :request do
       it "must return the book selected" do
         expect(json_body).to include(:id, :author, :title, :sinopsis,
                                      :release_date, :book_cover)
+      end
+    end
+  end
+
+  describe "PUT#update" do
+    context "when a book is updated" do
+      let(:author) { create(:author) }
+      let(:book) { create(:book, author_id: author.id) }
+
+      let(:new_params) { attributes_for(:book, title: 'Louca Obsessão',
+                                         sinopsis: "lorem ipsum 2",
+                                         release_date: "1990-07-06") }
+
+      before do
+      book
+      new_params
+
+      put book_path(id: book.id), params: { book: new_params }
+      end
+
+      it "must return 204 status code" do
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+
+    context "when the admin try to send invalid attributes" do
+      let(:author) { create(:author) }
+      let(:book) { create(:book, author_id: author.id) }
+
+      let(:new_params) { attributes_for(:book, title: nil,
+                                         sinopsis: nil,
+                                         release_date: nil) }
+
+      before do
+      book
+      new_params
+
+      put book_path(id: book.id), params: { book: new_params }
+      end
+
+      it "must return 422 status code" do
+        expect(response).to have_http_status(:unprocessable_entity)
+      end
+
+      it "must return 422 status code" do
+        expect(json_body).to have_key(:errors)
       end
     end
   end
