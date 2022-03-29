@@ -110,10 +110,10 @@ RSpec.describe "Books", type: :request do
                                          release_date: "1990-07-06") }
 
       before do
-      book
-      new_params
+        book
+        new_params
 
-      put book_path(id: book.id), params: { book: new_params }
+        put book_path(id: book.id), params: { book: new_params }
       end
 
       it "must return 204 status code" do
@@ -130,10 +130,10 @@ RSpec.describe "Books", type: :request do
                                          release_date: nil) }
 
       before do
-      book
-      new_params
+        book
+        new_params
 
-      put book_path(id: book.id), params: { book: new_params }
+        put book_path(id: book.id), params: { book: new_params }
       end
 
       it "must return 422 status code" do
@@ -142,6 +142,27 @@ RSpec.describe "Books", type: :request do
 
       it "must return 422 status code" do
         expect(json_body).to have_key(:errors)
+      end
+    end
+
+    describe "DELETE#destroy" do
+      context "when a book is deleted" do
+        let(:author) { create(:author) }
+        let(:book) { create(:book, author_id: author.id) }
+
+        before do
+          book
+
+          delete book_path(id: book.id)
+        end
+
+        it "must return status 204" do
+          expect(response).to have_http_status(:no_content)
+        end
+
+        it "must delete the book" do
+          expect(Book.count).to eq(0)
+        end
       end
     end
   end
