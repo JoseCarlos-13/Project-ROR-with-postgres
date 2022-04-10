@@ -1,7 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe Author, type: :model do
-  it { is_expected.to validate_presence_of(:name) }
+  context "validations" do
+    it { is_expected.to validate_presence_of(:name) }
+  end
 
-  it { is_expected.to have_many(:books).dependent(:destroy) }
+  context "associations" do
+    it { is_expected.to have_many(:books).dependent(:destroy) }
+  end
 end
