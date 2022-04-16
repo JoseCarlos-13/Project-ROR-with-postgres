@@ -5,7 +5,7 @@ class AuthorsController < ApplicationController
     authors = authors.where("name like ?", "%#{params[:name]}%") if params[:name].present?
 
     render json: authors,
-           each_serializer: Index::AuthorSerializer, status: :ok
+           each_serializer: Author::Index::AuthorSerializer, status: :ok
   end
 
   def create
@@ -13,7 +13,7 @@ class AuthorsController < ApplicationController
 
     if author.save
       render json: author,
-             serializer: Create::AuthorSerializer, status: :created
+             serializer: Author::Create::AuthorSerializer, status: :created
     else
       render json: { error_message: "the name is null or invalid" }, status: :unprocessable_entity
     end
@@ -32,7 +32,7 @@ class AuthorsController < ApplicationController
   def show
     author = Author.find(params[:id])
 
-    render json: author, serializer: Show::AuthorSerializer, status: :ok
+    render json: author, serializer: Author::Show::AuthorSerializer, status: :ok
   end
 
   def destroy
