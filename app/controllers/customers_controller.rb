@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :set_customer, only: [:show]
+  before_action :customer, only: [:show]
 
   def index
     @customers = Customer.all
@@ -10,14 +10,14 @@ class CustomersController < ApplicationController
   end
 
   def show
-    render json: set_customer,
+    render json: customer,
            serializer: Customer::Show::CustomerSerializer,
            status: :ok
   end
 
   private
 
-  def set_customer
+  def customer
     @customer = Customer.find(params[:id])
   end
 end
