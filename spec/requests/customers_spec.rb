@@ -17,4 +17,20 @@ RSpec.describe "Customers", type: :request do
       end
     end
   end
+
+  describe "GET#show" do
+  context "when one customer is selected" do
+    it "must return 200 status code and the customers selected" do
+      customer = create(:customer)
+
+      get "/customers/#{customer.id}"
+
+      expect(response).to have_http_status(:ok)
+      expect(json_body).to have_key(:id)
+      expect(json_body).to have_key(:name)
+      expect(json_body).to have_key(:email)
+      expect(json_body).to have_key(:age)
+    end
+  end
+end
 end
