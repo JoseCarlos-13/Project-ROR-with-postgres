@@ -9,6 +9,19 @@ class CustomersController < ApplicationController
            status: :ok
   end
 
+  def create
+    @new_customer = Customer.new(customer_params)
+
+    if @new_customer.save
+      render json: @new_customer,
+             serializer: Customer::Create::CustomerSerializer,
+             status: :created
+    else
+      render json: { errors: @new_customer.errors },
+             status: :unprocessable_entity
+    end
+  end
+
   def show
     render json: customer,
            serializer: Customer::Show::CustomerSerializer,
@@ -19,5 +32,9 @@ class CustomersController < ApplicationController
 
   def customer
     @customer = Customer.find(params[:id])
+  end
+
+  def customer_params
+    params.require(:customer).permit(:name, :email, :age)
   end
 end
