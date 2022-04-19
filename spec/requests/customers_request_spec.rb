@@ -62,4 +62,18 @@ RSpec.describe "Customers", type: :request do
       end
     end
   end
+
+  describe "PUT#update" do
+    context "when the selected customer is updated" do
+      it "must return 204 status code" do
+        customer = create(:customer)
+        new_customer_params = attributes_for(:customer, name: "John Doe",
+                                             email: "johndoe@gmail.com", age: 23)
+
+        put "/customers/#{customer.id}", params: { customer: new_customer_params }
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+  end
 end

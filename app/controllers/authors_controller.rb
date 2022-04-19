@@ -14,7 +14,8 @@ class AuthorsController < ApplicationController
 
     if author.save
       render json: author,
-             serializer: Author::Create::AuthorSerializer, status: :created
+             serializer: Author::Create::AuthorSerializer,
+             status: :created
     else
       render json: { error_message: "the name is null or invalid" },
              status: :unprocessable_entity
@@ -47,6 +48,8 @@ class AuthorsController < ApplicationController
 
     head :no_content
   end
+
+  private
 
   def author_params
     params.require(:author).permit(:name, :author_image)
