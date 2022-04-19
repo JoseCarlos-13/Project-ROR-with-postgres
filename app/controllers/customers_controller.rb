@@ -1,5 +1,5 @@
 class CustomersController < ApplicationController
-  before_action :customer, only: [:show, :update]
+  before_action :customer, only: [:show, :update, :destroy]
 
   def index
     @customers = Customer.all
@@ -30,6 +30,12 @@ class CustomersController < ApplicationController
 
   def update
     @customer.update(customer_params)
+
+    head :no_content
+  end
+
+  def destroy
+    @customer.delete
 
     head :no_content
   end

@@ -76,4 +76,17 @@ RSpec.describe "Customers", type: :request do
       end
     end
   end
+
+  describe "DELETE#destroy" do
+    context "when the selected customer is deleted" do
+      it "must to delete the customer and return 204 status code" do
+        customer = create(:customer)
+
+        delete "/customers/#{customer.id}"
+
+        expect(response).to have_http_status(:no_content)
+        expect(Customer.all.count).to eq(0)
+      end
+    end
+  end
 end
