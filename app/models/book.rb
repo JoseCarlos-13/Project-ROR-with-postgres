@@ -10,6 +10,8 @@ class Book < ApplicationRecord
 
   belongs_to :author
 
+  scope :search_book, -> (book_title) { where("title like ?", "%#{book_title}%") if book_title.present? }
+
   def image_url
     book_cover_url = rails_blob_path(self.book_cover, only_path: true)
 

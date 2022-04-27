@@ -1,6 +1,8 @@
 class BooksController < ApplicationController
   def index
-    @books = Book.all
+    @books = Book.all.includes(:author)
+
+    @books = @books.search_book(params[:title])
 
     render json: @books,
            each_serializer: Book::Index::BookSerializer,
