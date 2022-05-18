@@ -1,0 +1,12 @@
+<h1 class="title">Autores</h1>
+<div class="author-list">
+  <ul>
+    <% @authors.map do |author| %>
+    <li>
+      <h3><%= author.name %></h3>
+      <p><strong>id: </strong><%= author.id%></p>
+      <img src="<%= image_path(author.image_url) %>" />
+    </li>
+    <%end%>
+  </ul>
+</div>

@@ -1,0 +1,45 @@
+// Place all the styles related to the Authors controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: https://sass-lang.com/
+.title {
+  text-align: center;
+  text-decoration-line: underline;
+}
+.author-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  .name-and-photo {
+    padding: {
+      left: 0px;
+      right: 100px;
+      top: 0px;
+      bottom: 0px;
+    }
+    h2 {
+      text-decoration-line: underline;
+    }
+    img {
+      text-align: left;
+      width: 250px;
+    }
+  }
+  .author-text{
+    padding: {
+      left: 0px;
+      right: 0px;
+      top: 0px;
+      bottom: 0px;
+    }
+  }
+  border-bottom: 2px solid grey;
+  margin: 20px 20px 20px 20px;
+  color: black;
+  border: 2px solid black;
+  padding: {
+    left: 50px;
+    right: 50px;
+    top: 50px;
+    bottom: 50px;
+  }
+}
