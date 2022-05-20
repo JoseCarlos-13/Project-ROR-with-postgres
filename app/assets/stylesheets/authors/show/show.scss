@@ -1,0 +1,26 @@
+.title {
+  text-align: center;
+  text-decoration-line: underline;
+}
+.author-details {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  margin: 20px;
+  border: 2px solid black;
+  padding: 20px;
+  .name-and-photo {
+    h2 {
+      text-decoration-line: underline;
+    }
+    img {
+      width: 200px;
+      border: 2px solid black;
+    }
+    padding: 0px 0px 0px 100px;
+  }
+  .author-text{
+    width: 1000px;
+  }
+}

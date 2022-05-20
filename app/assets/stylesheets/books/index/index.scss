@@ -1,0 +1,27 @@
+.title{
+  text-decoration: underline;
+  text-align: center;
+}
+.books {
+  h3 {
+    text-decoration: underline;
+  }
+  display: flex;
+  flex-direction: row;
+  justify-content: space-evenly;
+  flex-wrap: wrap;
+  border: 2px solid black;
+  padding: 20px;
+  margin: {
+    top: 20px;
+    right: 20px;
+    bottom: 20px;
+    left: 20px;
+  }
+  .book{
+    img {
+      border: 2px solid black;
+      width: 200px;
+    }
+  }
+}
