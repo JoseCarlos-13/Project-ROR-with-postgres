@@ -1,9 +1,10 @@
-<h1>Livros</h1>
-<ul style="list-style: none; margin: 20px 20px 20px 20px;">
+<h1 class="title">Livros</h1>
+<div class="books">
   <% @books.map do |book| %>
-  <li>
-    <h3><%= book.title %></h3>
-    <%= image_tag book.book_cover, :size=>"300x300" %>
-  </li>
+    <div class="book">
+      <h3><%= book.title %></h3>
+      <p><strong>id: </strong><%= book.id %></p>
+      <img src="<%= image_path(book.image_url) %>" />
+    </div>
   <%end%>
-</ul>
+</div>
