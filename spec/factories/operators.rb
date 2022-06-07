@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :operator do
-    name { "MyString" }
-    email { "MyString" }
+    sequence(:name) { |n| "operator#{n}" }
+    sequence(:email) { |n| "operator#{n}@gmail.com" }
   end
 end

@@ -19,3 +19,5 @@ Customer.create(
     email: "brianjohnsonocérebro@gmail.com",
     age: 16
   )
+
+Operator.create(name: "Carl The Janitor", email: "carlthejanitor@gmail.com")

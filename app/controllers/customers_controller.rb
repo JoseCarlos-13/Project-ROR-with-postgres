@@ -5,7 +5,7 @@ class CustomersController < ApplicationController
     @customers = Customer.all
 
     render json: @customers,
-           each_serializer: Customer::Index::CustomerSerializer,
+           each_serializer: Customer::Index::CustomersSerializer,
            status: :ok
   end
 
@@ -14,7 +14,7 @@ class CustomersController < ApplicationController
 
     if @new_customer.save
       render json: @new_customer,
-             serializer: Customer::Create::CustomerSerializer,
+             serializer: Customer::Create::CustomersSerializer,
              status: :created
     else
       render json: { errors: @new_customer.errors },
@@ -24,7 +24,7 @@ class CustomersController < ApplicationController
 
   def show
     render json: @customer,
-           serializer: Customer::Show::CustomerSerializer,
+           serializer: Customer::Show::CustomersSerializer,
            status: :ok
   end
 
