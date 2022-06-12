@@ -5,7 +5,7 @@ class AuthorsController < ApplicationController
     @authors = @authors.search_author(params[:name])
 
     render json: @authors,
-           each_serializer: Author::Index::AuthorSerializer,
+           each_serializer: Author::Index::AuthorsSerializer,
            status: :ok
   end
 
@@ -13,7 +13,7 @@ class AuthorsController < ApplicationController
     @author = Author.find(params[:id])
 
     render json: @author,
-           serializer: Author::Show::AuthorSerializer,
+           serializer: Author::Show::AuthorsSerializer,
            status: :ok
   end
 
@@ -22,7 +22,7 @@ class AuthorsController < ApplicationController
 
     if @author.save
       render json: @author,
-             serializer: Author::Create::AuthorSerializer,
+             serializer: Author::Create::AuthorsSerializer,
              status: :created
     else
       render json: { error_message: "the name is null or invalid" },

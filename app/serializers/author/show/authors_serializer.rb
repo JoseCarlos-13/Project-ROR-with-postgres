@@ -1,4 +1,4 @@
-class Author::Create::AuthorSerializer < ActiveModel::Serializer
+class Author::Show::AuthorsSerializer < ActiveModel::Serializer
   attributes :id, :name, :author_image
 
   def author_image

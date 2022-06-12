@@ -1,4 +1,4 @@
-class Book::Show::BookSerializer < ActiveModel::Serializer
+class Book::Index::BooksSerializer < ActiveModel::Serializer
   attributes :id, :title, :author, :release_date, :sinopsis, :book_cover
 
   def author

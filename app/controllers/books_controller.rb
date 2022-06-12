@@ -5,7 +5,7 @@ class BooksController < ApplicationController
     @books = @books.search_book(params[:title])
 
     render json: @books,
-           each_serializer: Book::Index::BookSerializer,
+           each_serializer: Book::Index::BooksSerializer,
            status: :ok
   end
 
@@ -13,7 +13,7 @@ class BooksController < ApplicationController
     @book = Book.find(params[:id])
 
     render json: @book,
-           serializer: Book::Show::BookSerializer,
+           serializer: Book::Show::BooksSerializer,
            status: :ok
   end
 
@@ -22,7 +22,7 @@ class BooksController < ApplicationController
 
     if @book.save
       render json: @book,
-             serializer: Book::Create::BookSerializer,
+             serializer: Book::Create::BooksSerializer,
              status: :created
     else
       render json: { errors: @book.errors.messages },
