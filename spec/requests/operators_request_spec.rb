@@ -45,7 +45,7 @@ RSpec.describe "Operators", type: :request do
         operator_attributes = attributes_for(:operator, name: nil, email: nil)
 
         post "/operators", params: { operator: operator_attributes }
-binding.pry
+
         expect(response).to have_http_status(:unprocessable_entity)
         expect(json_body).to include(:errors)
       end
