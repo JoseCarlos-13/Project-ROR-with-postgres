@@ -51,4 +51,17 @@ RSpec.describe "Operators", type: :request do
       end
     end
   end
+
+  describe "PUT #update" do
+    context "when the operator is updated" do
+      it "must update the operator" do
+        operator = create(:operator)
+        operator_params = attributes_for(:operator, name: "Richard Vernon")
+
+        put "/operators/#{operator.id}", params: { operator: operator_params }
+
+        expect(response).to have_http_status(:no_content)
+      end
+    end
+  end
 end
