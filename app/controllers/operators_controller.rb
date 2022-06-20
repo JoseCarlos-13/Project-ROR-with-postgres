@@ -28,6 +28,14 @@ class OperatorsController < ApplicationController
     end
   end
 
+  def update
+    @operator = Operator.find(params[:id])
+
+    @operator.update(operator_attributes)
+
+    head :no_content
+  end
+
   private
 
   def operator_attributes
