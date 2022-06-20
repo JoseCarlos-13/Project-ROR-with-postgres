@@ -36,6 +36,14 @@ class OperatorsController < ApplicationController
     head :no_content
   end
 
+  def destroy
+    @operator = Operator.find(params[:id])
+
+    @operator.destroy
+
+    head :no_content
+  end
+
   private
 
   def operator_attributes
