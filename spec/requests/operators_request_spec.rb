@@ -64,4 +64,17 @@ RSpec.describe "Operators", type: :request do
       end
     end
   end
+
+  describe "DELETE #destroy" do
+    context "when the operator is removed" do
+      it "must delete the operator" do
+        operator = create(:operator)
+
+        delete "/operators/#{operator.id}"
+
+        expect(response).to have_http_status(:no_content)
+        expect(Operator.count).to eq(0)
+      end
+    end
+  end
 end
