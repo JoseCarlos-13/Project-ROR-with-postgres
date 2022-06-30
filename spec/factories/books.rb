@@ -4,12 +4,6 @@ FactoryBot.define do
     sinopsis { "MyText" }
     sequence(:release_date) { |n| "202#{n}-10-27" }
     author { nil }
-
-    after(:build) do |book|
-      image_path = Rails.root.join("app", "assets", "images", "ruby_symbol.png")
-      image = fixture_file_upload(image_path, 'image/png')
-
-      book.book_cover.attach(image)
-    end
+    book_cover { Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png') }
   end
 end

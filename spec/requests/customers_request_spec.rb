@@ -14,6 +14,7 @@ RSpec.describe "Customers", type: :request do
         expect(json_body[0]).to have_key(:name)
         expect(json_body[0]).to have_key(:email)
         expect(json_body[0]).to have_key(:age)
+        expect(json_body[0]).to have_key(:customer_image)
       end
     end
   end
@@ -30,6 +31,7 @@ RSpec.describe "Customers", type: :request do
         expect(json_body).to have_key(:name)
         expect(json_body).to have_key(:email)
         expect(json_body).to have_key(:age)
+        expect(json_body).to have_key(:customer_image)
       end
     end
   end
@@ -38,7 +40,8 @@ RSpec.describe "Customers", type: :request do
     context "when the customer is created" do
       it "must return 201 status code and the customer created" do
         customer_params = attributes_for(:customer, name: "John Doe",
-                                         email: "johndoe@gmail.com", age: 21)
+                                         email: "johndoe@gmail.com", age: 21,
+                                         customer_image: Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png'))
 
         post "/customers", params: { customer: customer_params }
 
@@ -47,6 +50,7 @@ RSpec.describe "Customers", type: :request do
         expect(json_body).to have_key(:name)
         expect(json_body).to have_key(:email)
         expect(json_body).to have_key(:age)
+        expect(json_body).to have_key(:customer_image)
       end
     end
 
