@@ -40,12 +40,8 @@ RSpec.describe "Authors", type: :request do
   describe 'POST #create' do
     context 'when the author is created' do
       it 'must return 201 status code' do
-        author_image = fixture_file_upload(
-          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
-          'image/png'
-        )
         author_params = attributes_for(:author, name: 'Stephen King',
-                                                author_image: author_image)
+                                                author_image: Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png'))
 
         post '/authors', params: { author: author_params }
 
@@ -53,12 +49,8 @@ RSpec.describe "Authors", type: :request do
       end
 
       it 'must create the author' do
-        author_image = fixture_file_upload(
-          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
-          'image/png'
-        )
         author_params = attributes_for(:author, name: 'Stephen King',
-                                                author_image: author_image)
+                                                author_image: Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png'))
 
         post '/authors', params: { author: author_params }
 
@@ -91,12 +83,8 @@ RSpec.describe "Authors", type: :request do
     context 'when the author is updated' do
       it 'must return the 204 status code' do
         author = create(:author)
-        author_image = fixture_file_upload(
-          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
-          'image/png'
-        )
         author_params = attributes_for(:author, name: 'Mary Shelley',
-                                                author_image: author_image)
+                                                author_image: Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png'))
 
         put "/authors/#{author.id}", params: { author: author_params }
 
@@ -119,12 +107,8 @@ RSpec.describe "Authors", type: :request do
   describe 'GET #show' do
     context 'when the author is found' do
       it 'must return 200 status code' do
-        author_image = fixture_file_upload(
-          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
-          'image/png'
-        )
         author = create(:author, name: 'Edgar Allan Poe',
-                                 author_image: author_image)
+                                 author_image: Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png'))
 
         get "/authors/#{author.id}"
 
@@ -132,12 +116,8 @@ RSpec.describe "Authors", type: :request do
       end
 
       it 'must return the author' do
-        author_image = fixture_file_upload(
-          Rails.root.join('app', 'assets', 'images', 'ruby_symbol.png'),
-          'image/png'
-        )
         author = create(:author, name: 'Edgar Allan Poe',
-                                 author_image: author_image)
+                                 author_image: Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png'))
 
         get "/authors/#{author.id}"
 

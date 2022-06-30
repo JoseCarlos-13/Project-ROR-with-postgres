@@ -27,17 +27,11 @@ RSpec.describe "Books", type: :request do
   describe "POST#create" do
     context "when the book is created" do
       let(:author) { create(:author) }
-      let(:book_cover_image) {
-        fixture_file_upload(
-          Rails.root.join("app", "assets", "images", "ruby_symbol.png"),
-          'image/png'
-        )
-      }
       let(:book_params) { attributes_for(:book, title: "myString",
                                                 author_id: author.id,
                                                 sinopsis: "myString",
                                                 release_date: "2021-11-05",
-                                                book_cover: book_cover_image) }
+                                                book_cover: Rack::Test::UploadedFile.new('app/assets/images/ruby_symbol.png', 'image/png')) }
 
       before do
         book_params
