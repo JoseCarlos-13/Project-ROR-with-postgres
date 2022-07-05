@@ -4,6 +4,7 @@ class Customer < ApplicationRecord
   validates :name, presence: true
   validates :age, presence: true
   validates :email, presence: true, uniqueness: true
+  has_many :comments, dependent: :destroy
 
   has_one_attached :customer_image
 
