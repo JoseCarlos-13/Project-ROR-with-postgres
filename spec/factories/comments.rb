@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :comment do
-    customer { nil }
+    sequence(:customer) { |n| "#{n}" }
     sequence(:content) {|n| "MyStringlalala#{n}" }
   end
 end
