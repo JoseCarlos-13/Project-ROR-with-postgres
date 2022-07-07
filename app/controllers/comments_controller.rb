@@ -14,4 +14,12 @@ class CommentsController < ApplicationController
            serializer: Comment::Show::CommentsSerializer,
            status: :ok
   end
+
+  def destroy
+    @comment = Comment.find(params[:id])
+
+    @comment.destroy
+
+    head :no_content
+  end
 end
