@@ -6,4 +6,12 @@ class CommentsController < ApplicationController
            each_serializer: Comment::Index::CommentsSerializer,
            status: :ok
   end
+
+  def show
+    @comment = Comment.find(params[:id])
+
+    render json: @comment,
+           serializer: Comment::Show::CommentsSerializer,
+           status: :ok
+  end
 end
