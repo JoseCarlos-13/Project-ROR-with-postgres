@@ -45,4 +45,26 @@ RSpec.describe "Comments", type: :request do
       end
     end
   end
+
+  describe "DELETE#destroy" do
+    context "when a comment is deleted" do
+      it "must return the status code" do
+        customer = create(:customer)
+        comment = create(:comment, customer_id: customer.id)
+
+        delete "/comments/#{comment.id}"
+
+        expect(response).to have_http_status(:no_content)
+      end
+
+      it "must delete the comment" do
+        customer = create(:customer)
+        comment = create(:comment, customer_id: customer.id)
+
+        delete "/comments/#{comment.id}"
+
+        expect(Customer.last.comments.count).to eq(0)
+      end
+    end
+  end
 end
