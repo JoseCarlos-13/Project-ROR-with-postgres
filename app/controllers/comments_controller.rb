@@ -22,4 +22,14 @@ class CommentsController < ApplicationController
 
     head :no_content
   end
+
+  def create
+
+  end
+
+  private
+
+  def comment_params
+    params(:comment).permit(:content)
+  end
 end
