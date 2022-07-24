@@ -1,0 +1,12 @@
+<h1 class="title">Usuários</h1>
+<button><%= link_to "logout", destroy_customer_session_path, :method => :delete  %></button>
+<button><%= link_to "customer_registration", edit_customer_registration_path  %></button>
+<div class="customers">
+  <% @customers.map do |customer| %>
+    <div class="customer">
+      <h3><%= customer.name %></h3>
+      <p><strong>id: </strong><%= customer.id%></p>
+      <img src="<%= image_path(customer.image_url) %>" />
+    </div>
+  <%end%>
+</div>

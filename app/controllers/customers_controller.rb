@@ -1,5 +1,6 @@
 class CustomersController < ApplicationController
   before_action :customer, only: [:show, :update, :destroy]
+  before_action :authenticate_customer!, except: %i[index, show]
 
   def index
     @customers = Customer.all
