@@ -1,9 +1,14 @@
 class Customer < ApplicationRecord
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
+
   include Rails.application.routes.url_helpers
 
-  validates :name, presence: true
-  validates :age, presence: true
-  validates :email, presence: true, uniqueness: true
+  devise :database_authenticatable, :registerable,
+         :recoverable, :rememberable, :validatable
+
+  # validates :name, presence: true
+  # validates :age, presence: true
   has_many :comments, dependent: :destroy
 
   has_one_attached :customer_image
