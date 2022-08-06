@@ -1,0 +1,12 @@
+<h1 class="title">Administradores</h1>
+<button><%= link_to "logout", destroy_operator_session_path, :method => :delete  %></button>
+<button><%= link_to "operator_registration", edit_operator_registration_path  %></button>
+
+<div class="operators">
+  <% @operators.map do |operator| %>
+    <div class="operator">
+      <h3><%= operator.name %></h3>
+      <p><strong>id: </strong><%= operator.id%></p>
+    </div>
+  <%end%>
+</div>

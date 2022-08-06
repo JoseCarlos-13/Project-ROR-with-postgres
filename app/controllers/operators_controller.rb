@@ -1,10 +1,11 @@
 class OperatorsController < ApplicationController
+  before_action :authenticate_operator!
   def index
     @operators = Operator.all
 
-    render json: @operators,
-           each_serializer: Operator::Index::OperatorsSerializer,
-           status: :ok
+    # render json: @operators,
+    #        each_serializer: Operator::Index::OperatorsSerializer,
+    #        status: :ok
   end
 
   def show
