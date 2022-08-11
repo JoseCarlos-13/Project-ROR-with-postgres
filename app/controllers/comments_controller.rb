@@ -24,7 +24,13 @@ class CommentsController < ApplicationController
   end
 
   def create
+    @comment = Comment.new(comment_params)
 
+    @comment.save
+
+    render json: @comment,
+           serializer: Comment::Create::CommentsSerializer,
+           status: ok
   end
 
   private
